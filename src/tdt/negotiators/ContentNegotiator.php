@@ -14,12 +14,34 @@
 
 namespace tdt\negotiators;
 
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
 class ContentNegotiator{
     private $default;
-
+    private $log;
     private $stack;
-
-    public function __construct($default = ""){
+   private $config;
+   
+   /*
+    * Pass config to allow for logging
+    * log_dir = dir path to you logging
+    */
+   
+    public function __construct($default = "",array $config = array()){
+        $this->config = $config;
+        
+        /*
+         * configure the negotiator with logging parameters, if any provided in the config
+         */
+        $this->log = new Logger("content_negotiator");
+        if(isset($config["log_dir"])){
+            $log_dir = rtrim($config["log_dir"],"/");
+            $this->log->pushHandler(new StreamHandler($log_dir . "/log_". date('Y-m-d') . ".txt", Logger::INFO));            
+        }
+        
+        
+        
         $this->default = $default;
         $this->doContentNegotiation();
     }
@@ -39,13 +61,13 @@ class ContentNegotiator{
          * This means the agent prefers html, but if it cannot provide that, it should return xml. If that is not possible, give anything.
          */
 	if(!isset($_SERVER['HTTP_ACCEPT']) && $this->default !== ""){
-            Log::getInstance()->logInfo("server and default not set");
+            $this->log->addInfo("server and default not set");
             $this->stack = array(strtolower($this->default));
 	}else if(!isset($_SERVER['HTTP_ACCEPT'])){
-            Log::getInstance()->logInfo("accept not set, taking default");
+            $this->log->addInfo("accept not set, taking default");
             $this->stack = array("html");
         }else{
-            Log::getInstance()->logInfo("accept is set, doing content negotiation");
+            $this->log->addInfo("accept is set, doing content negotiation");
             $accept = $_SERVER['HTTP_ACCEPT'];
             $types = explode(',', $accept);
             //this removes whitespace from each type
