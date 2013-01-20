@@ -21,7 +21,7 @@ class ContentNegotiator{
     private $default;
     private $log;
     private $stack;
-   private $config;
+    private $config;
    
    /*
     * Pass config to allow for logging

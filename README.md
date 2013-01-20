@@ -13,7 +13,11 @@ Install as a requirement using composer:
 2. Add a requirement:
 
 ```json
-{ "require" : { "tdt/negotiators" : "dev-master" } }
+{ 
+  "require" : { 
+     "tdt/negotiators" : "dev-master" 
+  }
+}
 ```
 
 3. Install composer: http://getcomposer.com
@@ -28,17 +32,17 @@ Install as a requirement using composer:
 $cn = new \tdt\negotiators\ContentNegotiator();
 $format = $cn->pop();
 $default_format = "json";
-/*
-* formatExists checks if we can format something in 
-* the format requested.
-*/
 
+// $this->formatAllowed is a function you have to define yourself
 while (!$this->formatAllowed($format) && $cn->hasNext()) {
     $format = $cn->pop();
-    if ($format == "*") {
-        $format == $default_format;
-     }
 }
+
+if(! $this->formatAllowed($format)){
+     throw new Exception("Could not find an appropriate formatter.");
+}
+
+// use $format further on
 ```
 
 
@@ -48,5 +52,4 @@ Using phpunit:
 
 ```bash
 $ phpunit tests
-
 ```
