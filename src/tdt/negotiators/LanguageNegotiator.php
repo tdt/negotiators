@@ -76,7 +76,7 @@ class LanguageNegotiator{
                     $stack[$type] = $q;
                 }
                 //all that is left for us to do is sorting the array according to their q
-                asort($stack);
+                arsort($stack);
                 $this->stack = array_keys($stack);
             }
             
