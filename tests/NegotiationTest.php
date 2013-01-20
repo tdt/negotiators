@@ -9,6 +9,10 @@ class NegotiationTest extends \PHPUnit_Framework_TestCase{
         $this->assertEquals("en", $ln->pop());
         $this->assertEquals("fr", $ln->pop());
         $this->assertEquals("nl", $ln->pop());
+
+        $_GET["lang"] = "nl";
+        $ln = new \tdt\negotiators\LanguageNegotiator();
+        $this->assertEquals("nl", $ln->pop());
     }
 
     public function testContent(){
