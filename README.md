@@ -15,7 +15,7 @@ Install as a requirement using composer:
 ```json
 { 
   "require" : { 
-     "tdt/negotiators" : "dev-master" 
+     "tdt/negotiators" : "1.0.*" 
   }
 }
 ```
