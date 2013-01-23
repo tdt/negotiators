@@ -1,6 +1,6 @@
 # tdt/negotiators
 
-[![Build Status](https://travis-ci.org/tdt/negotiators.png?branch=master)](undefined)
+[![Build Status](https://travis-ci.org/tdt/negotiators.png?branch=master)](https://travis-ci.org/tdt/negotiators)
 
 Content and language negotiation written in PHP: GET parameters will overwrite accept header. Support for logging (monolog).
 
