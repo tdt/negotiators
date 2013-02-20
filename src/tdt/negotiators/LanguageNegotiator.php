@@ -71,9 +71,11 @@ class LanguageNegotiator{
                             $type = "en";
                         }
                     }
-                    //now add the language to the array
+                    //now add the language to the array, if it wasn't added before
                     $type = strtolower(substr($type,0,2));
-                    $stack[$type] = $q;
+                    if(!isset($stack[$type])){
+                        $stack[$type] = $q;
+                    }
                 }
                 //all that is left for us to do is sorting the array according to their q
                 arsort($stack);

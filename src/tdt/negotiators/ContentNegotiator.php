@@ -92,8 +92,10 @@ class ContentNegotiator{
                 }else if($type == "*"){
                     $type = "html";
                 }
-                //now add the format type to the array
-                $stack[$type] = $q;
+                //now add the format type to the array, if it hasn't been added yet
+                if(!isset($stack[$type])){
+                    $stack[$type] = $q;
+                }
             }
             //all that is left for us to do is sorting the array according to their q
             arsort($stack);
